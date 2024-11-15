@@ -23,6 +23,9 @@ if (! function_exists('sync_with_search')) {
             return;
         }
 
+        /** @var \Illuminate\Database\Eloquent\Model $model */
+        $model = \Lunar\Facades\ModelManifest::get($model);
+
         $isSearchable = in_array(Searchable::class, class_uses($model));
 
         if ($isSearchable) {
@@ -79,6 +82,9 @@ if (! function_exists('get_search_builder')) {
     {
         $scoutEnabled = config('lunar.panel.scout_enabled', false);
         $isScoutSearchable = in_array(Searchable::class, class_uses_recursive($model));
+
+        /** @var \Illuminate\Database\Eloquent\Model $model */
+        $model = \Lunar\Facades\ModelManifest::get($model);
 
         if (
             $scoutEnabled &&
